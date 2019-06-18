@@ -1,15 +1,21 @@
 <?php
 
+require "../src/controller/ApiController.php";
 
-class ApiControllerTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+use App\Src\Model\Controller\ApiController;
+
+
+class ApiControllerTest extends TestCase
 {
-    // Test 1: Get a Response from the Skiddle API 
+    // Test 1: Get a Response from the Skiddle API
     public function testGetResponsefromSkiddleApi()
     {
         $apiController = new ApiController();
         $response = $apiController->getRequest();
-        $this->assertIsArray($response, "data structure should be <array>");
+        $this->assertObjectHasAttribute('error', $response);
 
     }
+
 
 }
