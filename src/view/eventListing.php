@@ -27,3 +27,7 @@ include "header.php";
     </div>
 </div>
 
+<?php
+//include the footer, which has the script files
+include "footer.php";
+?>
