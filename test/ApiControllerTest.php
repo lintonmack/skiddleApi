@@ -3,7 +3,7 @@
 require "../src/controller/ApiController.php";
 
 use PHPUnit\Framework\TestCase;
-use App\Src\Model\Controller\ApiController;
+use App\Src\Controller\ApiController;
 
 
 class ApiControllerTest extends TestCase
@@ -13,9 +13,11 @@ class ApiControllerTest extends TestCase
     {
         $apiController = new ApiController();
         $response = $apiController->getRequest();
-        $this->assertObjectHasAttribute('error', $response);
+        $this->assertObjectHasAttribute('error',$response);
 
     }
+
+
 
 
 }

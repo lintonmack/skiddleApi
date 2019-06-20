@@ -2,6 +2,8 @@
 
 namespace App\Src\Controller;
 
+use App\Src\Model\Artist;
+
 /**
  *
  * ApiController class is used to interact with the Skiddle API
@@ -17,6 +19,7 @@ class ApiController
      * @var The API_KEY for skiddle
      */
     const API_KEY = "&api_key=008f1e6099ecc48e990e3776784d447b";
+
     /**
      * @var The version of the API currently being used
      */
@@ -49,10 +52,12 @@ class ApiController
      */
     public function getRequest()
     {
+        // call the method parameterBuilder to build the paramters
         $this->parameterBuilder();
         $curl = curl_init();
-        $url = self::API_URL . self::API_VER . $this::$urlExtension . $this->params . self::API_KEY;
 
+        // build th url with all the information
+        $url = self::API_URL . self::API_VER . $this::$urlExtension . $this->params . self::API_KEY;
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -84,5 +89,20 @@ class ApiController
         return;
     }
 
+    /**
+     * @return null
+     */
+    public function getResultSet()
+    {
+        return $this->resultSet;
+    }
+
+    /**
+     * @param null $resultSet
+     */
+    public function setResultSet($resultSet)
+    {
+        $this->resultSet = $resultSet;
+    }
 
 }

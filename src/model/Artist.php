@@ -11,7 +11,8 @@ use App\Src\Controller\ApiController;
 class Artist extends ApiController
 {
 
-    protected $name = "";
+    protected $name = null;
+    protected $artistResponse = null;
 
     protected static $urlExtension = "/artists?";
 
@@ -54,14 +55,6 @@ class Artist extends ApiController
     public static function setUrlExtension($urlExtension)
     {
         self::$urlExtension = $urlExtension;
-    }
-
-    /**
-     * @return null
-     */
-    public function getResultSet()
-    {
-        return $this->resultSet;
     }
 
 
