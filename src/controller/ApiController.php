@@ -70,7 +70,11 @@ class ApiController
             print($e);
         } finally {
             curl_close($curl);
-            $this->resultSet = $response->results;
+            if (count($response->error) > 1) {
+                $this->resultSet = "Unable to find a match";
+            } else {
+                $this->resultSet = $response->results;
+            }
 
             return;
         }

@@ -12,6 +12,8 @@ $eventsSearchRequest = new Event();
 $eventsSearchRequest->setCity("Manchester");
 $eventsSearchRequest->setRadius(10);
 $eventsSearchRequest->getRequest();
+$eventsManchester = $eventsSearchRequest->getResultSet();
+
 // include the html header template, with nav bar
 
 $page = "eventsManchester";
@@ -20,16 +22,16 @@ include "header.php";
 ?>
 <h1>Events In Manchester</h1>
 <?php
-echo "<div class=\"fluid\">
+
+if (isset($eventsManchester) && !is_string($eventsManchester)) {
+    echo "<div class=\"fluid\">
           <div class=\"card-deck\">";
-//var_dump($eventsManchesterRequest);
-//loop over the reuslt set and display below
+
+    //loop over the reuslt set and display below
 
     $count = 0;
-    $eventsManchester = $eventsSearchRequest->getResultSet();
     foreach ($eventsManchester as $key => $event) {
-        if ($count%5===0)
-        {
+        if ($count % 5 === 0) {
             echo "</div>
                       <div class=\"card-deck\">";
         }
@@ -40,7 +42,7 @@ echo "<div class=\"fluid\">
                   <div class=\"card-body\">
                       <p class=\"card-text\">" . htmlspecialchars($event->eventname) . "</p>
                       <form method=\"post\" action=\"eventListing.php\">
-                        <input style=\"display: none;\" value=\"". base64_encode(serialize($event)) ."\" name=\"event\">
+                        <input style=\"display: none;\" value=\"" . base64_encode(serialize($event)) . "\" name=\"event\">
                         <input type=\"submit\" value=\"View Event\">
                       </form>
                   </div>
@@ -50,6 +52,10 @@ echo "<div class=\"fluid\">
 
     echo "</div>
               </div>";
+} else {
+    //if there was an error just echo the response, unable to get a listing
+    echo $eventsManchester;
+}
 
 //include the footer, which has the script files
 include "footer.php";

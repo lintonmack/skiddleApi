@@ -31,7 +31,7 @@ include "header.php";
 </form>
 <?php
 //loop over the reuslt set and display below
-if (isset($artistRequest)) {
+if (isset($artistRequest) && !is_string($artistRequest)) {
     $artists = $artistRequest->getResultSet();
     foreach ($artists as $key => $artist) {
         echo "<div class=\"card\" style=\"width: 18rem;\">
@@ -41,6 +41,9 @@ if (isset($artistRequest)) {
                   </div>
               </div>";
     }
+} else {
+    // if there was an error just echo the response, unable to get a listing.
+    echo $artistRequest;
 }
 //include the footer, which has the script files
 include "footer.php";

@@ -36,14 +36,15 @@ echo "<div class=\"fluid\">
 //loop over the reuslt set and display below
 
 $count = 0;
-foreach ($responseResultSet as $key => $event) {
-    if ($count % 5 === 0) {
-        echo "</div>
+if (isset($responseResultSet) && !is_string($responseResultSet)) {
+    foreach ($responseResultSet as $key => $event) {
+        if ($count % 5 === 0) {
+            echo "</div>
                       <div class=\"card-deck\">";
-    }
-    // build the card and serialize the data prior to transfer it to the next page
+        }
+        // build the card and serialize the data prior to transfer it to the next page
 
-    echo "<div class=\"card\" style=\"max-width: 540px;\">
+        echo "<div class=\"card\" style=\"max-width: 540px;\">
                   <img src=\"" . $event->imageurl . "\" class=\"card-img-top\" alt=\"...\">
                   <div class=\"card-body\">
                       <p class=\"card-text\">" . htmlspecialchars($event->eventname) . "</p>
@@ -53,11 +54,14 @@ foreach ($responseResultSet as $key => $event) {
                       </form>
                   </div>
               </div>";
-    $count++;
-}
-
-echo "</div>
+        $count++;
+    }
+    echo "</div>
               </div>";
+} else {
+    //if there was an error just echo the response, unable to get a listing
+    echo $responseResultSet;
+}
 
 //include the footer, which has the script files
 include "footer.php";
